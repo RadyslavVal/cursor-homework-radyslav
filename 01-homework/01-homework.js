@@ -52,7 +52,6 @@ const randomDiscount = (maxDiscount) => {
 };
 
 const randomPay = (resSum, discount) => {
-    console.log(resSum, discount)
     console.log(`Сума до оплати, враховуючи випадкову знижу: ${(resSum - resSum * discount).toFixed(2)}`)
     return (resSum - resSum * discount).toFixed(2);
 }
