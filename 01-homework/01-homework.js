@@ -30,7 +30,7 @@ const roundedSum100 = arr => {
 }
 
 const pairOrNot = resSum => {
-    if (Math.floor(resSum) / 2 === 0) {
+    if (Math.floor(resSum) % 2 === 0) {
         return console.log('Чи є сума всіх товарів парною: true')
     }
     console.log('Чи є сума всіх товарів парною: false')
