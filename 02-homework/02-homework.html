@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link
+      rel="stylesheet"
+      href="https://bootswatch.com/5/sandstone/bootstrap.min.css"
+    />
+    <script src="./02-homework.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lecture #2</title>
+  </head>
+  <body>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">
+            <h3>Tasks</h3>
+            Необхідно написати програму, яка виконує складання чисел від N до M
+            (N та M – задаються користувачем), а також програма має вміти
+            пропускати парні числа. Нижче приведено алгоритм, що потрібно
+            зробити.
+          </br>
+            (!) При виводі суми можна використовувати функції console.log или
+            document.writeln 
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="table-light">
+          <th scope="row">
+            Отримайте у користувача число(N) від якого ми будемо складати.
+            Отримати число можна за допомогою prompt. Пам'ятайте, ЧИСЛО, не
+            РЯДОК!
+          </th>
+        </tr>
+        <tr class="table-light">
+          <th scope="row">
+            Перевірте, чи є передане значення N ЦІЛИМ числом. (Підказка: якщо
+            при конвертації в ціле число ми отримали NaN – це число нам не
+            підходить)
+          </th>
+        </tr>
+        <tr class="table-light">
+          <th scope="row">
+            Отримайте у користувача число(M) до якого ми будемо складати
+            (включно). Отримати число можна за допомогою prompt. Пам'ятайте,
+            ЧИСЛО, не РЯДОК!
+          </th>
+        </tr>
+        <tr class="table-light">
+          <th scope="row">
+            Перевірте, чи є передане значення M ЦІЛИМ числом. (Підказка: якщо
+            при конвертації в ціле число ми отримали NaN – це число нам не
+            підходить)
+          </th>
+        </tr>
+        <tr class="table-light">
+          <th scope="row">
+            Отримайте у користувача булевий параметр(true/false), який підкаже
+            нам чи потрібно пропускати парні числа. TRUE – потрібно, FALSE – не
+            потрібно. Використовуйте функцію confirm
+          </th>
+        </tr>
+        <tr class="table-light">
+          <th scope="row">
+            Напишіть цикл, який буде складати числа від раніше отриманих N і M
+          </th>
+        </tr>
+        <tr class="table-light">
+          <th scope="row">
+            В циклі додайте перевірку – чи потрібно пропускати при складанні
+            парні числа. (Використовуйте для цього if/else). Якщо парні числа
+            потрібно пропускати не додавайте їх до суми.
+          </th>
+        </tr>
+        <tr class="table-light">
+          <th scope="row">Виведіть результат</th>
+        </tr>
+        <tr class="table-info">
+          <th scope="row">
+            Приклад: користувач ввів такі значення для N=10, M=100,
+            ПропускатиПарні=TRUE – сума чисел виведена на екрані буде === 2475
+          </th>
+        </tr>
+        <tr class="table-info">
+          <th scope="row">
+            Приклад: користувач ввів такі значення для N=10, M=100,
+            ПропускатиПарні=FALSE – сума чисел виведена на екрані буде === 5005
+          </th>
+        </tr>
+        <tr class="table-info">
+          <th scope="row">
+            Приклад: користувач ввів такі значення для N=1, M=10,
+            ПропускатиПарні=FALSE – сума чисел виведена на екрані буде === 55
+          </th>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
