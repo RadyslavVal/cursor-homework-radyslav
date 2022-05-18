@@ -4,7 +4,6 @@ let parityCheck;
 
 while (!Number.isInteger(parseInt(N))) {
     N = prompt("Enter first number");
-    console.log(N);
 };
 
 while (!Number.isInteger(parseInt(M))) {
@@ -14,7 +13,6 @@ while (!Number.isInteger(parseInt(M))) {
             M = prompt("Second number must be biger then first");
         };
     };
-    console.log(M);
 };
 
 parityCheck = confirm("Skip pair number?") ? "TRUE" : "FALSE";
