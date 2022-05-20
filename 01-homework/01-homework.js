@@ -52,8 +52,9 @@ const randomDiscount = (maxDiscount) => {
 };
 
 const randomPay = (resSum, discount) => {
-    console.log(`Сума до оплати, враховуючи випадкову знижу: ${(resSum - resSum * discount).toFixed(2)}`)
-    return (resSum - resSum * discount).toFixed(2);
+    let payAfterDisc = (resSum - resSum * discount).toFixed(2)
+    console.log(`Сума до оплати, враховуючи випадкову знижу: ${payAfterDisc}`)
+    return payAfterDisc;
 }
 
 const netProfit = (resSum, pay) => {
