@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link
+      rel="stylesheet"
+      href="https://bootswatch.com/5/sandstone/bootstrap.min.css"
+    />
+    <script src="./main.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lecture #4</title>
+  </head>
+  <body>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">
+            <h3>Tasks</h3>
+            (!) У функціях не потрібно виводити ніяких даних, вони мають бути чистими, по можливості. Після чого в кінці ДЗ потрібно обернути виклик ваших функцій в console.log або document.writeln.
+          </br>
+          Приклад: Ваша функція об'явлена десь const myFunc = () => { ...}, в кінці вашого ДЗ ви виводите результат виклику document.writeln(`Функція №1: ${myFunc("аргументи, якщо є")}`)
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="table-light">
+          <th scope="row">
+            Створити функцію getMaxDigit(number) – яка отримує будь-яке число та виводить найбільшу цифру в цьому числі. Приклади: 1236 -> 6, 987 -> 9, 385 -> 8
+          </th>
+        </tr>
+        <tr class="table-light">
+          <th scope="row">
+            Створити функцію, яка визначає ступінь числа. Не використовуючи Math.pow та **. Використовуйте цикл
+          </th>
+        </tr>
+        <tr class="table-light">
+          <th scope="row">
+            Створити функцію, яка форматує ім'я, роблячи першу букву великою. ("влад" -> "Влад", "вЛАД" -> "Влад" і так далі);
+          </th>
+        </tr>
+        <tr class="table-light">
+          <th scope="row">
+            Створити функцію, яка вираховує суму, що залишається після оплати податку від зарабітньої плати. (Податок = 18% + 1.5% -> 19.5%). Приклад: 1000 -> 805
+          </th>
+        </tr>
+        <tr class="table-light">
+          <th scope="row">
+            Створити функцію, яка повертає випадкове ціле число в діапазоні від N до M. Приклад: getRandomNumber(1, 10) -> 5
+          </th>
+        </tr>
+        <tr class="table-light">
+          <th scope="row">
+            Створити функцію, яка рахує скільки разів певна буква повторюється в слові. Приклад: countLetter("а", "Асталавіста") -> 4
+          </th>
+        </tr>
+        <tr class="table-light">
+          <th scope="row">
+            Створіть функцію, яка конвертує долари в гривні та навпаки в залежності від наявності символа $ або UAH в рядку. Приклад: convertCurrency("100$") -> 2500 грн. або convertCurrency("2500UAH") -> 100$
+          </th>
+        </tr>
+        <tr class="table-light">
+          <th scope="row">
+            Врахуйте, інші валюти не конвертуються, потрібно виводити помилку, і також регістр uah не має значення.
+          </th>
+        </tr>
+        <tr class="table-light">
+          <th scope="row">
+            Створіть функцію генерації випадкового паролю (тільки числа), довжина встановлюється користувачем або по замовчуванню = 8 символам.
+          </th>
+        </tr>
+        <tr class="table-light">
+          <th scope="row">
+            Приклад: getRandomPassword(4) -> 1875, getRandomPassword() -> 87240124
+          </th>
+        </tr>
+        <tr class="table-light">
+          <th scope="row">
+            Створіть функцію, яка видаляє всі букви з речення. Приклад: deleteLetters('a', "blablabla") -> "blblbl"
+          </th>
+        </tr>
+        <tr class="table-light">
+            <th scope="row">
+                Створіть функцію, яка перевіряє, чи є слово паліндромом. Приклад: isPalyndrom("мадам") -> true, isPalyndrom("кокос") -> false, isPalyndrom("Я несу гусеня") -> true
+            </th>
+          </tr>
+          <tr class="table-light">
+            <th scope="row">
+                Створіть функцію, яка видалить з речення букви, які зустрічаються більше 1 разу. Приклад: deleteDuplicateLetter("Бісквіт був дуже ніжним") -> "сктдеим"
+            </th>
+          </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
