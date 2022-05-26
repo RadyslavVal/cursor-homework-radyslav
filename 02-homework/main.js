@@ -2,11 +2,11 @@ let N;
 let M;
 let parityCheck;
 
-while (!Number.isInteger(parseInt(N))) {
+while (!Number.isInteger(N)) {
     N = +prompt("Enter first number");
 };
 
-while (!Number.isInteger(parseInt(M)) || M <= N) {
+while (!Number.isInteger(M) || M <= N) {
     M = +prompt("Enter second number(must be biger then first)");
 };
 
@@ -25,4 +25,4 @@ let result = (N, M, parityCheck) => {
     return console.log(sum)
 }
 
-result(parseInt(N), parseInt(M), parityCheck)
+result(N, M, parityCheck)
