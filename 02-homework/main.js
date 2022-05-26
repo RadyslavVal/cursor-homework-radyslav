@@ -6,7 +6,7 @@ while (!Number.isInteger(parseInt(N))) {
     N = +prompt("Enter first number");
 };
 
-while (!Number.isInteger(parseInt(M)) || M < N) {
+while (!Number.isInteger(parseInt(M)) || M <= N) {
     M = +prompt("Enter second number(must be biger then first)");
 };
 
