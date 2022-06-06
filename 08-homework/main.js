@@ -55,18 +55,33 @@ const getStudentsNames = (students) => {
     return names.sort((a, b) => a !== b ? a < b ? -1 : 1 : 0);
 };
 
-//const getBestStudent = (students) => {
-//    const listStud = []
-//
-//};
+const getBestStudent = (students) => {
+    const listStud = {}
+    students.forEach(element => listStud[element.name] = getAverageMark(element));
 
-//const calculateWordLetters = (word) => {
-//
-//};
+    return Object.entries(listStud).reduce((acc, curr) => acc[1] > curr[1] ? acc : curr)[0];
+};
+
+const calculateWordLetters = (word) => {
+    const transfWord = word.trim().replace(/\s+/g, '').toLowerCase();
+    const result = {};
+
+    for (let i = 0; i < transfWord.length; i++) {
+        let letter = transfWord[i];
+        if (!result.hasOwnProperty(letter)) {
+            result[letter] = 1;
+        }
+        else {
+            result[letter] += 1;
+        };
+    };
+
+    return result;
+};
 
 console.log(`Список предметів ${students[0].name}:`, getSubjects(students[0]));
 console.log(`Середню оцінку по усім предметам ${students[0].name}:`, getAverageMark(students[0]));
 console.log('Інформація по студенту:', getStudentInfo(students[0], getAverageMark));
 console.log(`Імена студентів у алфавітному порядку:`, getStudentsNames(students));
-//console.log(`Кращий студент: ${getBestStudent(students, getAverageMark)}`);
-//console.log(`Об'єкт з кількістю входжень літер у слові: ${calculateWordLetters(word)}`);
+console.log(`Кращий студент:`, getBestStudent(students, getAverageMark));
+console.log(`Об'єкт з кількістю входжень літер у слові:`, calculateWordLetters('  aB   Aba galaM  aga  '));
