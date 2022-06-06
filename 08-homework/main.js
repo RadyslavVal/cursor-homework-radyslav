@@ -25,32 +25,48 @@ const students = [{
 }];
 
 const getSubjects = (students) => {
-
+    return Object.keys(students.subjects)
 };
 
 const getAverageMark = (students) => {
+    const marksArr = Object.values(students.subjects).flat();
+    const avarageMark = marksArr.reduce((a, b) => a + b, 0) / marksArr.length;
 
+    return Number(avarageMark.toFixed(2));
 };
 
-const getStudentInfo = (students) => {
+const getStudentInfo = (students, getAverageMark) => {
+    const studentInfo = Object.entries(students)
+    const res = {}
+    for (const [key, value] of studentInfo) {
+        if (key != 'subjects') {
+            res[key] = value;
+        }
+    }
+    res['avarageMark'] = getAverageMark(students);
 
+    return res;
 };
 
 const getStudentsNames = (students) => {
+    const names = []
+    students.forEach(element => names.push(element.name));
 
+    return names.sort((a, b) => a !== b ? a < b ? -1 : 1 : 0);
 };
 
-const getBestStudent = (students) => {
+//const getBestStudent = (students) => {
+//    const listStud = []
+//
+//};
 
-};
+//const calculateWordLetters = (word) => {
+//
+//};
 
-const calculateWordLetters = (word) => {
-
-};
-
-console.log(`Список предметів ${students[x].name}: ${getSubjects(students[x])}`);
-console.log(`Середню оцінку по усім предметам ${students[x].name}: ${getAverageMark(students[x])}`);
-console.log(`Інформація по студенту ${students[x].name}: ${getStudentInfo(students[x])}`);
-console.log(`Імена студентів у алфавітному порядку: ${getStudentsNames(students)}`);
-console.log(`Кращий студент: ${getBestStudent(students)}`);
-console.log(`Об'єкт з кількістю входжень літер у слові: ${calculateWordLetters(word)}`);
+console.log(`Список предметів ${students[0].name}:`, getSubjects(students[0]));
+console.log(`Середню оцінку по усім предметам ${students[0].name}:`, getAverageMark(students[0]));
+console.log('Інформація по студенту:', getStudentInfo(students[0], getAverageMark));
+console.log(`Імена студентів у алфавітному порядку:`, getStudentsNames(students));
+//console.log(`Кращий студент: ${getBestStudent(students, getAverageMark)}`);
+//console.log(`Об'єкт з кількістю входжень літер у слові: ${calculateWordLetters(word)}`);
