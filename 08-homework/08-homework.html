@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link
+      rel="stylesheet"
+      href="https://bootswatch.com/5/sandstone/bootstrap.min.css"
+    />
+    <script src="./main.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lecture #8</title>
+  </head>
+  <body>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">
+            <h3>Tasks HW8</h3>
+            У цьому домашньому завданні, ви будете працювати з масивом об'єктів.
+            </br>
+            Для початку необхідно створити наступний масив (ви можете його просто скопіювати):
+            </br>
+            const students = [{
+              name: "Tanya",
+              course: 3,
+              subjects: {
+                math: [4, 4, 3, 4],
+                algorithms: [3, 3, 3, 4, 4, 4],
+                data_science: [5, 5, 3, 4]
+              }
+            }, </br> {
+              name: "Victor",
+              course: 4,
+              subjects: {
+                physics: [5, 5, 5, 3],
+                economics: [2, 3, 3, 3, 3, 5],
+                geometry: [5, 5, 2, 3, 5]
+              }
+            }, </br> {
+              name: "Anton",
+              course: 2,
+              subjects: {
+                statistics: [4, 5, 5, 5, 5, 3, 4, 3, 4, 5],
+                english: [5, 3],
+                cosmology: [5, 5, 5, 5]
+              }
+            }];
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="table-light">
+          <th scope="row">
+            Створіть функцію getSubjects(students[0] --> ["Math", "Algorithms", "Data science"] - яка повертає список предметів для конкретного студента. Зверніть увагу – назву предмету необхідно повертати з великої літери, а _ – замінити на пробіл
+          </th>
+        </tr>
+        <tr class="table-light">
+          <th scope="row">
+            Створіть функцію getAverageMark(students[0]) --> 3.79 – яка поверне середню оцінку по усім предметам для переданого студента НЕ МАСИВА СТУДЕНТІВ. Оцінку округліть до 2ого знаку. Можна використовувати функції, написані у попередніх домашніх завданнях :)
+          </th>
+        </tr>
+        <tr class="table-light">
+          <th scope="row">
+            Створіть функцію getStudentInfo(students[0]) --> { "course": 3, "name": "Tanya", "averageMark": 3.79} – яка повертає інформацію загального виду по переданому студенту (вам знадобиться функція з попереднього завдання). ПОвинна бути виведена інформація: курс, ім'я, середня оцінка.
+          </th>
+        </tr>
+        <tr class="table-light">
+          <th scope="row">
+            Ствроіть функцію getStudentsNames(students) --> ["Anton", "Tanya, "Victor"] – яка повертає імена студентів у алфавітному порядку.
+          </th>
+        </tr>
+        <tr class="table-light">
+          <th scope="row">
+            Створіть функцію getBestStudent(students) --> "Anton" – яка повертає кращого студента зі списку по показнику середньої оцінки.
+          </th>
+        </tr>
+        <tr class="table-light">
+          <th scope="row">
+            Створіть функцію calculateWordLetters("тест") --> { "т": 2, "е": 1, "с": 1 } – яка повертає обє'кт, в якому ключі це букви у слові, а значення – кількість їх повторень.
+          </th>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
