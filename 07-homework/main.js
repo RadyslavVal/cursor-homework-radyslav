@@ -3,9 +3,11 @@ const getRandomArray = (length, min, max) => {
         return Math.floor(Math.random() * (Math.floor(Math.max(min, max)) - Math.ceil(Math.min(min, max)) + 1)) + min;
     };
     let resultArr = [];
+
     for (let i = 0; i < length; i++) {
         resultArr.push(getRandomNumberFromRange(min, max))
     };
+
     return resultArr;
 };
 
@@ -51,6 +53,7 @@ const getMedian = (numbers) => {
     let array = numbers
         .filter(elem => Number.isInteger(elem))
         .sort(function (a, b) { return a - b });
+
     if (array.length % 2 === 1) {
         return array[(array.length - 1) / 2]
     }
@@ -105,6 +108,7 @@ const divideByThree = (word) => {
         .toLowerCase();
     const result = [];
     const integerLength = transfWord.length - transfWord.length % 3;
+    
     if (transfWord.length <= 3) {
         result.push(transfWord)
     }
@@ -114,14 +118,14 @@ const divideByThree = (word) => {
         }
     }
     result.push(transfWord.slice(integerLength, transfWord.length));
-
-    return [...result].filter(elem => elem.length > 0);
+    return result.filter(elem => elem.length > 0);
 };
 
 const generateCombinations = (word) => {
     if (word.length > 10) {
         return "Enter a word less than 10 characters"
     }
+    if (word.length < 2) return [word];
 
     const result = [];
     for (let i = 0; i < word.length; i++) {
@@ -129,7 +133,6 @@ const generateCombinations = (word) => {
         for (let j = 0; j < combinationChar.length; j++) {
             result.push(word[i] + combinationChar[j]);
         }
-        if (word.length < 2) return [word];
     }
 
     let resWithoutDupl = new Set(result)
@@ -146,6 +149,6 @@ console.log(`filterEvenNumbers: ${filterEvenNumbers(randomArray)}`);
 console.log(`countPositiveNumbers: ${countPositiveNumbers([1, -2, 3, -4, -5, 6])}`);
 console.log(`getDividedByFive: ${getDividedByFive(randomArray)}`);
 console.log(`replaceBadWords: ${replaceBadWords("It's bullshit!", 'shit', 'fuck')}`);
-console.log(`divideByThree: ${divideByThree("   C   omm  an  d e r   ")}`);
-console.log(`generateCombinations: ${generateCombinations('anagrama')}`);
+console.log(`divideByThree: ${divideByThree("   C   oMm  an  D e r   ")}`);
+console.log(`generateCombinations: ${generateCombinations('aaaam')}`);
 
