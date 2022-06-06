@@ -25,10 +25,25 @@ const students = [{
 }];
 
 const getSubjects = (students) => {
-    return Object.keys(students.subjects)
+    if (!students) {
+        return "Select a student"
+    }
+
+    const result = []
+    const studentSubj = Object.keys(students.subjects);
+    studentSubj
+        .forEach(elem => result.push(
+            elem.replaceAll("_", " ").slice(0, 1).toUpperCase()
+            + elem.replaceAll("_", " ").slice(1)
+        ))
+
+    return result
 };
 
 const getAverageMark = (students) => {
+    if (!students) {
+        return "Select a student"
+    }
     const marksArr = Object.values(students.subjects).flat();
     const avarageMark = marksArr.reduce((a, b) => a + b, 0) / marksArr.length;
 
@@ -36,6 +51,10 @@ const getAverageMark = (students) => {
 };
 
 const getStudentInfo = (students, getAverageMark) => {
+    if (!students) {
+        return "Select a student"
+    }
+
     const studentInfo = Object.entries(students)
     const res = {}
     for (const [key, value] of studentInfo) {
@@ -49,13 +68,21 @@ const getStudentInfo = (students, getAverageMark) => {
 };
 
 const getStudentsNames = (students) => {
+    if (!students) {
+        return "Select a student"
+    }
+
     const names = []
     students.forEach(element => names.push(element.name));
 
-    return names.sort((a, b) => a !== b ? a < b ? -1 : 1 : 0);
+    return names.sort();
 };
 
 const getBestStudent = (students) => {
+    if (!students) {
+        return "Select a student"
+    }
+
     const listStud = {}
     students.forEach(element => listStud[element.name] = getAverageMark(element));
 
@@ -63,6 +90,10 @@ const getBestStudent = (students) => {
 };
 
 const calculateWordLetters = (word) => {
+    if (!word || typeof (word) !== 'string') {
+        return "Enter some string"
+    }
+
     const transfWord = word.trim().replace(/\s+/g, '').toLowerCase();
     const result = {};
 
@@ -79,9 +110,9 @@ const calculateWordLetters = (word) => {
     return result;
 };
 
-console.log(`Список предметів ${students[0].name}:`, getSubjects(students[0]));
-console.log(`Середню оцінку по усім предметам ${students[0].name}:`, getAverageMark(students[0]));
-console.log('Інформація по студенту:', getStudentInfo(students[0], getAverageMark));
+console.log(`Список предметів :`, getSubjects(students[0]));
+console.log(`Середню оцінку по усім предметам :`, getAverageMark(students[0]));
+console.log('Інформація по студенту:', getStudentInfo(students[2], getAverageMark));
 console.log(`Імена студентів у алфавітному порядку:`, getStudentsNames(students));
 console.log(`Кращий студент:`, getBestStudent(students, getAverageMark));
-console.log(`Об'єкт з кількістю входжень літер у слові:`, calculateWordLetters('  aB   Aba galaM  aga  '));
+console.log(`Об'єкт з кількістю входжень літер у слові:`, calculateWordLetters("  A b ab  a Ga lAm   aga   "));
