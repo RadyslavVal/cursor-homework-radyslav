@@ -141,14 +141,14 @@ const generateCombinations = (word) => {
 
 
 const randomArray = getRandomArray(15, 1, 100);
-console.log(`getRandomArray:  ${randomArray}`);
-console.log(`getModa: ${getModa(...randomArray)}`);
-console.log(`getAverage: ${getAverage(randomArray)}`);
-console.log(`getMedian: ${getMedian(randomArray)}`);
-console.log(`filterEvenNumbers: ${filterEvenNumbers(randomArray)}`);
-console.log(`countPositiveNumbers: ${countPositiveNumbers([1, -2, 3, -4, -5, 6])}`);
-console.log(`getDividedByFive: ${getDividedByFive(randomArray)}`);
-console.log(`replaceBadWords: ${replaceBadWords("It's bullshit!", 'shit', 'fuck')}`);
-console.log(`divideByThree: ${divideByThree("   C   oMm  an  D e r   ")}`);
-console.log(`generateCombinations: ${generateCombinations('anagrama')}`);
+console.log(`getRandomArray:`,  randomArray);
+console.log(`getModa:`, getModa(...randomArray));
+console.log(`getAverage:`, getAverage(randomArray));
+console.log(`getMedian:`, getMedian(randomArray));
+console.log(`filterEvenNumbers:`, filterEvenNumbers(randomArray));
+console.log(`countPositiveNumbers:`, countPositiveNumbers([1, -2, 3, -4, -5, 6]));
+console.log(`getDividedByFive:`, getDividedByFive(randomArray));
+console.log(`replaceBadWords:`, replaceBadWords("It's bullshit!", 'shit', 'fuck'));
+console.log(`divideByThree:`, divideByThree("   C   oMm  an  D e r   "));
+console.log(`generateCombinations:`, generateCombinations('anagrama'));
 
