@@ -132,8 +132,8 @@ const generateCombinations = (word) => {
         let combinationChar = generateCombinations(word.slice(0, i) + word.slice(i + 1, word.length));
         for (let j = 0; j < combinationChar.length; j++) {
             result.push(word[i] + combinationChar[j]);
-        }
-    }
+        };
+    };
 
     let resWithoutDupl = new Set(result)
     return [...resWithoutDupl];
@@ -150,5 +150,5 @@ console.log(`countPositiveNumbers: ${countPositiveNumbers([1, -2, 3, -4, -5, 6])
 console.log(`getDividedByFive: ${getDividedByFive(randomArray)}`);
 console.log(`replaceBadWords: ${replaceBadWords("It's bullshit!", 'shit', 'fuck')}`);
 console.log(`divideByThree: ${divideByThree("   C   oMm  an  D e r   ")}`);
-console.log(`generateCombinations: ${generateCombinations('aaaam')}`);
+console.log(`generateCombinations: ${generateCombinations('anagrama')}`);
 
