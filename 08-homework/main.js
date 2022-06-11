@@ -24,61 +24,60 @@ const students = [{
     }
 }];
 
-const getSubjects = (students) => {
-    if (!students) {
+const getSubjects = () => {
+    if (!student) {
         return "Select a student"
     }
 
     const result = []
-    const studentSubj = Object.keys(students.subjects);
+    const studentSubj = Object.keys(student.subjects);
     studentSubj
         .forEach(elem => result.push(
-            elem.replaceAll("_", " ").slice(0, 1).toUpperCase()
-            + elem.replaceAll("_", " ").slice(1)
-        ))
+            elem.slice(0, 1).replaceAll("_", " ").toUpperCase()
+            + elem.slice(1).replaceAll("_", " ")
+        ));
 
     return result
 };
 
-const getAverageMark = (students) => {
-    if (!students) {
+const getAverageMark = () => {
+    if (!student) {
         return "Select a student"
     }
-    const marksArr = Object.values(students.subjects).flat();
+    const marksArr = Object.values(student.subjects).flat();
     const avarageMark = marksArr.reduce((a, b) => a + b, 0) / marksArr.length;
 
     return Number(avarageMark.toFixed(2));
 };
 
-const getStudentInfo = (students, getAverageMark) => {
-    if (!students) {
+const getStudentInfo = () => {
+    if (!student) {
         return "Select a student"
     }
 
-    const studentInfo = Object.entries(students)
+    const studentInfo = Object.entries(student)
     const res = {}
     for (const [key, value] of studentInfo) {
         if (key != 'subjects') {
             res[key] = value;
         }
     }
-    res['avarageMark'] = getAverageMark(students);
+    res['avarageMark'] = getAverageMark(student);
 
     return res;
 };
 
-const getStudentsNames = (students) => {
+const getStudentsNames = () => {
     if (!students) {
         return "Select a student"
     }
 
-    const names = []
-    students.forEach(element => names.push(element.name));
+    const names = students.map(student => student.name).sort();
 
-    return names.sort();
+    return names;
 };
 
-const getBestStudent = (students) => {
+const getBestStudent = () => {
     if (!students) {
         return "Select a student"
     }
@@ -99,20 +98,21 @@ const calculateWordLetters = (word) => {
 
     for (let i = 0; i < transfWord.length; i++) {
         let letter = transfWord[i];
-        if (!result.hasOwnProperty(letter)) {
-            result[letter] = 1;
-        }
-        else {
-            result[letter] += 1;
-        };
+        result.hasOwnProperty(letter) ? result[letter] += 1 : result[letter] = 1;
     };
 
     return result;
 };
 
-console.log(`Список предметів :`, getSubjects(students[0]));
-console.log(`Середню оцінку по усім предметам :`, getAverageMark(students[0]));
-console.log('Інформація по студенту:', getStudentInfo(students[2], getAverageMark));
-console.log(`Імена студентів у алфавітному порядку:`, getStudentsNames(students));
-console.log(`Кращий студент:`, getBestStudent(students, getAverageMark));
-console.log(`Об'єкт з кількістю входжень літер у слові:`, calculateWordLetters("  A b ab  a Ga lAm   aga   "));
+
+const getRandomStudent = (min, max) => {
+    return Math.floor(Math.random() * (Math.floor(Math.max(min, max)) - Math.ceil(Math.min(min, max)) + 1)) + min;
+};
+const student = students[getRandomStudent(0, 2)];
+
+console.log(`Список предметів :`, getSubjects());
+console.log(`Середню оцінку по усім предметам :`, getAverageMark());
+console.log('Інформація по студенту:', getStudentInfo());
+console.log(`Імена студентів у алфавітному порядку:`, getStudentsNames());
+console.log(`Кращий студент:`, getBestStudent());
+console.log(`Об'єкт з кількістю входжень літер у слові:`, calculateWordLetters("  AAB fbsdf sABBF EFB FDS    "));
