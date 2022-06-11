@@ -1,3 +1,5 @@
+"use strict";
+
 const UKRAINE = { tax: 0.195, middleSalary: 1789, vacancies: 11476 };
 const LATVIA = { tax: 0.25, middleSalary: 1586, vacancies: 3921 };
 const LITVA = { tax: 0.15, middleSalary: 1509, vacancies: 1114 };
