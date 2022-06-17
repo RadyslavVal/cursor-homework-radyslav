@@ -1,0 +1,104 @@
+"use strict";
+
+class Student {
+    constructor(fullName, university, course, marks = [], status = 'studies') {
+        this.university = university;
+        this.course = course;
+        this.fullName = fullName;
+        this.marks = marks;
+        this.status = status;
+    }
+
+    get info() {
+        return this.status === 'studies' ?
+            `Студент ${this.course}го курсу ${this.university}, ${this.fullName}.` :
+            `${this.fullName} був виключений.`;
+    }
+
+    get studentMarks() {
+        if (this.status === 'dismiss') {
+            return null;
+        };
+        return this.marks.length > 0 ?
+            this.marks :
+            `${this.fullName} ще не отримував оцінок.`;
+    }
+
+    set studentMarks(mark) {
+        if (this.status === 'dismiss') {
+            console.log(null);
+        }
+        else if (Number(mark) > 0 && Number(mark) < 6) {
+            this.marks.push(Number(mark));
+            console.log(this.marks);
+        }
+        else console.log('Поставте оцінку від 1 до 5')
+    }
+
+    getAverageMark() {
+        if (this.status === 'dismiss') {
+            return null;
+        };
+        return this.marks.length > 0 ?
+            (this.marks.reduce((a, b) => Number(a) + Number(b), 0) / this.marks.length).toFixed(2) :
+            `${this.fullName} ще не отримував оцінок.`;
+    }
+
+    dismiss() {
+        this.status = 'dismiss';
+        return `${this.fullName} був виключений.`;
+    }
+
+    recover() {
+        this.status = 'studies';
+        return `${this.fullName} був поновлений.`;
+    }
+}
+
+const student1 = new Student('Остап Бендер', 'Вищої Школи Психотерапії м. Одеса', 1, [5, 4, 4, 5]);
+
+console.log(student1.info);
+console.log(student1.studentMarks);
+student1.studentMarks = "5";
+console.log(student1.getAverageMark());
+console.log(student1.dismiss());
+
+console.log('Запити після виключення студента: ')
+console.log(student1.info);
+console.log(student1.studentMarks);
+student1.studentMarks = "5";
+console.log(student1.getAverageMark());
+console.log(student1.recover());
+
+console.log('Запити після поновлення студента: ');
+console.log(student1.info);
+console.log(student1.studentMarks);
+student1.studentMarks = "5";
+console.log(student1.getAverageMark());
+
+
+class BudgetStudent extends Student {
+    constructor(fullName, university, course, marks = [], status = 'studies', budget = 'false') {
+        super(fullName, university, course, marks, status);
+        this.budget = budget;
+        setInterval(() => this.getScholarship(), 3000);
+    }
+
+    getScholarship() {
+        this.budget = 'true';
+        if (this.status === 'dismiss') {
+            return console.log(`${this.fullName} був виключений.`);
+        }
+        else if (this.getAverageMark() < 4 || this.budget == 'false') {
+            return console.log('Треба підняти середній бал вище 4.0')
+        }
+        console.log('Ви отримали 1400грн. стипендії');
+    }
+}
+
+const budgetStudent = new BudgetStudent('Тверда Голова', 'Технічний ВУЗ Копання Печер, м. Гномськ', 1, [5, 4, 4, 4]);
+
+console.log(budgetStudent.getScholarship());
+//budgetStudent.studentMarks = 2;
+//budgetStudent.dismiss();
+
