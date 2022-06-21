@@ -1,0 +1,10 @@
+#square {
+  display: inline-flex;
+  width: 250px;
+  flex-wrap: wrap;
+}
+
+#square__element {
+  height: 50px;
+  width: 50px;
+}
