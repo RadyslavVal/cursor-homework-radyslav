@@ -80,7 +80,7 @@ console.log(student1.getAverageMark());
 class BudgetStudent extends Student {
     constructor(fullName, university, course, marks = [], status = true) {
         super(fullName, university, course, marks, status);
-        setInterval(() => this.getScholarship(), 3000);
+        setInterval(() => this.getScholarship(), 30000);
     }
 
     getScholarship() {
