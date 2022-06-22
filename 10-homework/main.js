@@ -1,7 +1,7 @@
 "use strict";
 
 class Student {
-    constructor(fullName, university, course, marks = [], status = 'studies') {
+    constructor(fullName, university, course, marks = [], status = true) {
         this.university = university;
         this.course = course;
         this.fullName = fullName;
@@ -10,13 +10,13 @@ class Student {
     }
 
     get info() {
-        return this.status === 'studies' ?
+        return this.status ?
             `Студент ${this.course}го курсу ${this.university}, ${this.fullName}.` :
             `${this.fullName} був виключений.`;
     }
 
     get studentMarks() {
-        if (this.status === 'dismiss') {
+        if (!this.status) {
             return null;
         };
         return this.marks.length > 0 ?
@@ -25,7 +25,7 @@ class Student {
     }
 
     set studentMarks(mark) {
-        if (this.status === 'dismiss') {
+        if (!this.status) {
             console.log(null);
         }
         else if (Number(mark) > 0 && Number(mark) < 6) {
@@ -36,7 +36,7 @@ class Student {
     }
 
     getAverageMark() {
-        if (this.status === 'dismiss') {
+        if (!this.status) {
             return null;
         };
         return this.marks.length > 0 ?
@@ -45,12 +45,12 @@ class Student {
     }
 
     dismiss() {
-        this.status = 'dismiss';
+        this.status = false;
         return `${this.fullName} був виключений.`;
     }
 
     recover() {
-        this.status = 'studies';
+        this.status = true;
         return `${this.fullName} був поновлений.`;
     }
 }
@@ -78,18 +78,16 @@ console.log(student1.getAverageMark());
 
 
 class BudgetStudent extends Student {
-    constructor(fullName, university, course, marks = [], status = 'studies', budget = 'false') {
+    constructor(fullName, university, course, marks = [], status = true) {
         super(fullName, university, course, marks, status);
-        this.budget = budget;
-        setInterval(() => this.getScholarship(), 30000);
+        setInterval(() => this.getScholarship(), 3000);
     }
 
     getScholarship() {
-        this.budget = 'true';
-        if (this.status === 'dismiss') {
+        if (!this.status) {
             return console.log(`${this.fullName} був виключений.`);
         }
-        else if (this.getAverageMark() < 4 || this.budget == 'false') {
+        else if (this.getAverageMark() < 4) {
             return console.log('Треба підняти середній бал вище 4.0')
         }
         console.log('Ви отримали 1400грн. стипендії');
