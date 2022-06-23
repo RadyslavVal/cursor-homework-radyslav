@@ -96,7 +96,7 @@ class BudgetStudent extends Student {
 
 const budgetStudent = new BudgetStudent('Тверда Голова', 'Технічний ВУЗ Копання Печер, м. Гномськ', 1, [5, 4, 4, 4]);
 
-console.log(budgetStudent.getScholarship());
+budgetStudent.getScholarship();
 //budgetStudent.studentMarks = 2;
 //budgetStudent.dismiss();
 
