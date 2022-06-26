@@ -1,0 +1,18 @@
+.app {
+  font-size: 30px;
+  margin: 20px;
+}
+.funcBlock {
+  margin: 0 0 20px;
+}
+.input {
+  margin: 0 10px 0 0;
+}
+.textBlock {
+  display: inline-flex;
+  flex-direction: column;
+  margin: 0 20px 0 0;
+}
+.chinChar {
+  font-size: 50px;
+}
