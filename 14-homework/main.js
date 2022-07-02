@@ -9,6 +9,18 @@ function toogle() {
 };
 toggler.addEventListener('click', toogle);
 
+const container = document.getElementById('container');
+const buttonBlocks = document.getElementById('buttonBlock');
+
+clearContext = function () {
+    if (container.hasChildNodes) {
+        container.replaceChildren();
+    };
+    if (buttonBlocks.hasChildNodes) {
+        buttonBlocks.replaceChildren();
+    };
+}
+
 getResourse = async (url) => {
     const res = await fetch(`${_apiBase}${url}`);
     if (!res.ok) {
@@ -33,15 +45,8 @@ _extractPage = (item) => {
     return item.match(idreaexp);
 }
 
-const buttonBlocks = document.getElementById('buttonBlock');
-
 getAllPlanets = async () => {
-    if (container.hasChildNodes) {
-        container.replaceChildren();
-    };
-    if (buttonBlocks.hasChildNodes) {
-        buttonBlocks.replaceChildren();
-    };
+    clearContext();
 
     const res = await getResourse(`/planets/?page=${page}`);
     let results = res.results;
@@ -88,13 +93,11 @@ getAllPlanets = async () => {
                     </div >
                         `)
     };
-
 }
 
 getPlanet = async (id) => {
     const planet = await getResourse(`/planets/${id}`);
     return _transformPlanet(planet)
-
 }
 
 getPlanetImage = ({ id }) => {
@@ -147,15 +150,12 @@ _transformFilm = (film) => {
     };
 }
 
-const container = document.getElementById('container');
-
+let filmsCount = 0;
 getFilms = async () => {
-    if (container.hasChildNodes) {
-        container.replaceChildren();
-    };
+    clearContext();
 
     const res = await getResourse(`/films/`);
-    let count = res.count;
+    filmsCount = res.count;
     let results = res.results.sort(function (a, b) {
         if (a.episode_id > b.episode_id) {
             return 1;
@@ -166,61 +166,44 @@ getFilms = async () => {
         return 0;
     }); // Сортую для корректного відобюраження хронології;
 
-    for (let i = 0; i < count; i++) {
-        let imgId = 0;
+    for (let i = 0; i < filmsCount; i++) {
+        let imgId;
         results[i].episode_id > 3 ? imgId = results[i].episode_id - 3 : imgId = results[i].episode_id + 3;
 
-        const film = document.createElement('div');
-        film.className = 'film card';
+        container.insertAdjacentHTML('beforeend', `
+                    <div class="film card" id=${imgId}>
+                        <img class="img" src='${getFilmImage(imgId)}' alt="'Image not found'" id=${imgId}/>
+                        <div class="card-body d-flex-wrap align" id=${imgId}>
+                            <h3 class="card-title id=${imgId}>Name: ${results[i].title}</h3 >
+                            <h5 class="card-subtitle" id=${imgId}>Release date: ${results[i].release_date}</h5>
+                            <h5 class="card-subtitle" id=${imgId}>Director: ${results[i].director}</h5>
+                        </div >
+                    </div >`);
+
+        const film = document.getElementById(imgId);
+
         film.addEventListener('click', (e) =>
             getFilm(e.target.id).then(data => {
-                if (container.hasChildNodes) {
-                    container.replaceChildren();
-                };
-                data.peopleId.forEach(id => getPerson(id).then(person => {
-                    container.insertAdjacentHTML('beforeend', `
-                    <div class="person card">
-                        <img class="img" src='${getPersonImage({ id })}'>
-                        <div class="card-body d-flex-wrap align">
-                            <h3>Name: ${person.name}</h3 >
-                            <h5>Birth Year: ${person.birthYear}</h5>
-                            <h5>Gender: ${person.gender}</h5>
-                        </div >
-                    </div >
-                        `)
-                })
-                )
+                clearContext();
+                data.peopleId.forEach(id => searchPerson(id))
             })
         );
-
-        const img = document.createElement('img');
-        img.className = 'img';
-        img.src = getFilmImage(imgId);
-        img.alt = 'Image not found';
-
-        const cardBody = document.createElement('div');
-        cardBody.className = 'card-body d-flex-wrap align';
-
-        const title = document.createElement('h3');
-        title.className = 'card-title';
-        title.textContent = `${results[i].title} `;
-
-        const releaseDate = document.createElement('h5');
-        releaseDate.className = 'card-subtitle';
-        releaseDate.textContent = `Release date: ${results[i].release_date} `;
-
-        const director = document.createElement('h5');
-        director.className = 'card-subtitle';
-        director.textContent = `Director: ${results[i].director} `;
-
-        film.id = img.id = cardBody.id = title.id = releaseDate.id = director.id = imgId;
-        cardBody.append(title);
-        cardBody.append(releaseDate);
-        cardBody.append(director);
-        film.append(img);
-        film.append(cardBody);
-        container.append(film);
     };
+};
+
+const searchPerson = function (id) {
+    getPerson(id).then(person => {
+        container.insertAdjacentHTML('beforeend', `
+        <div class="person card">
+            <img class="img" src='${getPersonImage({ id })}'>
+            <div class="card-body d-flex-wrap align">
+                <h3 >Name: ${person.name}</h3 >
+                <h5 class="card-subtitle">Birth Year: ${person.birthYear}</h5>
+                <h5 class="card-subtitle">Gender: ${person.gender}</h5>
+            </div >
+        </div >
+            `)
+    })
 };
 
 getFilms();
@@ -230,5 +213,26 @@ home.addEventListener('click', getFilms);
 const planets = document.querySelector('#planets');
 planets.addEventListener('click', getAllPlanets);
 
+const form = document.querySelector('#searchForm');
+const input = document.querySelector('#searchInput');
+const button = document.querySelector('#searchButton');
 
+const searchByForm = () => {
+    const inputId = Math.floor(input.value);
+    if (inputId < 0 || inputId > filmsCount || !Number(inputId)) {
+        console.log('Enter a movie number no larger than their number')
+    }
+    getFilm(inputId).then(data => {
+        clearContext();
+        data.peopleId.forEach(id => searchPerson(id))
+    });
+};
+
+const onFormSubmit = (e) => {
+    e.preventDefault();
+    searchByForm();
+    form.reset();
+};
+
+form.addEventListener('submit', onFormSubmit);
 
