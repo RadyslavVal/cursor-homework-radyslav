@@ -1,5 +1,6 @@
 _apiBase = 'https://swapi.dev/api';
 _imgBase = 'https://starwars-visualguide.com/assets/img';
+let controller = new AbortController();
 
 const toggler = document.querySelector('.navbar-toggler');
 const collapse = document.querySelector('.collapse');
@@ -12,7 +13,13 @@ toggler.addEventListener('click', toogle);
 const container = document.getElementById('container');
 const buttonBlocks = document.getElementById('buttonBlock');
 
-const wookiee = true;
+let wookiee = false;
+const wookieeButton = document.getElementById('wookieeButton');
+const reload = function () {
+    wookiee = !wookiee;
+}
+
+wookieeButton.addEventListener('click', reload);
 
 clearContext = function () {
     if (container.hasChildNodes) {
@@ -24,35 +31,12 @@ clearContext = function () {
 }
 
 getResourse = async (url) => {
-    const res = wookiee ? await fetch(`${_apiBase}${url}?format=wookiee`) : await fetch(`${_apiBase}${url}`)
+    const res = await fetch(`${_apiBase}${url}`)
     if (!res.ok) {
         throw new Error(`Could not fetch ${url}` +
             `, received ${res.status}`)
     };
-    return await wookiee ? res.text() : res.json();
-}
-
-getPerson = async (id) => {
-    const people = await getResourse(`/people/${id}`);
-    return _transformPeople(people);
-}
-
-getPersonImage = ({ id }) => {
-    return `${_imgBase}/characters/${id}.jpg`
-}
-
-_transformPeople = (people) => {
-    return wookiee ? {
-        id: _extractId(people),
-        name: people.whrascwo,
-        gender: people.rrwowhwaworc,
-        birthYear: people.rhahrcaoac_roworarc,
-    } : {
-        id: _extractId(people),
-        name: people.name,
-        gender: people.gender,
-        birthYear: people.birth_year,
-    };
+    return await res.json();
 }
 
 const idReaExp = /\/([0-9]*)\/$/;
@@ -66,11 +50,22 @@ _extractPage = (item) => {
     return item.match(idreaexp);
 }
 
+getAllPlanetsWookiee = async () => {
+    const res = await fetch(`${_apiBase}/planets/?format=wookiee&page=${page}`).then((response) => {
+        return response.text()
+    }).then(response => { return JSON.parse(response.replaceAll(`whhuanan`, `"whhuanan"`)) })
+    return res;
+}
+
 getAllPlanets = async () => {
     clearContext();
 
     let next;
     let prev;
+    const res = wookiee ?
+        await getAllPlanetsWookiee() :
+        await getResourse(`/planets/?page=${page}`);
+    let results = wookiee ? res.rcwochuanaoc : res.results;
 
     buttonBlocks.insertAdjacentHTML('beforeend', `
         <button class="btn btn-primary disabled" id='prev' >PREVIOUS PAGE</button>
@@ -80,14 +75,16 @@ getAllPlanets = async () => {
     const prevPage = document.getElementById('prev');
     const nextPage = document.getElementById('next');
     prevPage.addEventListener('click', () => {
-        page = res.previous[0];
+        page = wookiee ? _extractPage(res.akrcwohoahoohuc) : _extractPage(res.previous);
         getAllPlanets();
     });
     nextPage.addEventListener('click', () => {
-        page = res.next[0];
+        page = wookiee ? _extractPage(res.whwokao) : _extractPage(res.next);
         getAllPlanets();
     });
 
+    next = wookiee ? res.whwokao : res.next;
+    prev = wookiee ? res.akrcwohoahoohuc : res.previous;
     if (next != null) {
         next = _extractPage(next);
         nextPage.classList.remove('disabled');
@@ -96,18 +93,10 @@ getAllPlanets = async () => {
         prev = _extractPage(prev);
         prevPage.classList.remove('disabled');
     };
-    const res = await fetch(`${_apiBase}/planets/?format=wookiee&page=${page}`)
-        .then(res => { return res.text() })
-    let results = res;
-    next = wookiee ? res.whwokao : res.next;
-    prev = wookiee ? res.akrcwohoahoohuc : res.previous;
-    console.log(res.rcwochuanaoc)
 
     for (let i = 0; i < 10; i++) {
-
-        let planetInfo = _transformPlanet(results);
+        let planetInfo = await _transformPlanet(results[i]);
         let id = planetInfo.id;
-        /* console.log(planetInfo) */
 
         container.insertAdjacentHTML('beforeend', `
                     <div class="planet card">
@@ -134,14 +123,14 @@ getPlanetImage = ({ id }) => {
     return `${_imgBase}/planets/${id}.jpg`
 }
 
-_transformPlanet = (planet) => {
+_transformPlanet = async (planet) => {
     return wookiee ? {
-        id: _extractId(planet),
+        id: await _extractId(planet),
         name: planet.whrascwo,
         diameter: planet.waahrascwoaoworc,
         population: planet.akooakhuanraaoahoowh,
     } : {
-        id: _extractId(planet),
+        id: await _extractId(planet),
         name: planet.name,
         diameter: planet.diameter,
         population: planet.population,
@@ -153,14 +142,29 @@ getFilm = async (id) => {
     return _transformFilm(film);
 }
 
+getWookieeFilm = async (id) => {
+    const film = await getWookieeAllFilms(id);
+    return _transformFilm(film);
+}
+
+getWookieeAllFilms = async (id = '') => {
+    const res = await fetch(`https://swapi.dev/api/films/${id}?format=wookiee`)
+        .then((response) => {
+            return response.text()
+        }).then((response) => { return JSON.parse(response.replaceAll(`whhuanan`, `"whhuanan"`).replaceAll(`\\`, "")) })
+    return res;
+}
+
+
 getFilmImage = (id) => {
     return `${_imgBase}/films/${id}.jpg`
 }
 
 _transformFilm = (film) => {
     const arrIdPeople = [];
-    for (let i = 0; i < film.characters.length; i++) {
-        arrIdPeople.push(film.characters[i].match(idReaExp)[1])
+    const length = wookiee ? film.oaacrarcraoaaoworcc.length : film.characters.length;
+    for (let i = 0; i < length; i++) {
+        arrIdPeople.push((wookiee ? film.oaacrarcraoaaoworcc[i] : film.characters[i]).match(idReaExp)[1])
     }
     return wookiee ? {
         id: film.woakahcoowawo_ahwa,
@@ -181,41 +185,44 @@ let filmsCount = 0;
 getFilms = async () => {
     clearContext();
 
-    /* const res = await getResourse(`/films/`); */
-    const res = await fetch(`${_apiBase}/films/?format=wookiee`).then(res => { return res.json() });
-    console.log(res)
+    const res = wookiee ?
+        await getWookieeAllFilms() :
+        await getResourse(`/films/`)
+
+    const count = wookiee ? res.oaoohuwhao : res.count;
+
     let results = await (wookiee ? res.rcwochuanaoc : res.results).sort(function (a, b) {
         if (wookiee ? a.woakahcoowawo_ahwa > b.woakahcoowawo_ahwa : a.episode_id > b.episode_id) {
             return 1;
         }
-        if (wookiee ? a.woakahcoowawo_ahwa > b.woakahcoowawo_ahwa : a.episode_id < b.episode_id) {
+        if (wookiee ? a.woakahcoowawo_ahwa < b.woakahcoowawo_ahwa : a.episode_id < b.episode_id) {
             return -1;
         }
         return 0;
     }); // Сортую для корректного відобюраження хронології;
 
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < count; i++) {
+        const filmInfo = _transformFilm(results[i]);
         let imgId;
         if (wookiee) {
             results[i].woakahcoowawo_ahwa > 3 ? imgId = results[i].woakahcoowawo_ahwa - 3 : imgId = results[i].woakahcoowawo_ahwa + 3
         } else {
             results[i].episode_id > 3 ? imgId = results[i].episode_id - 3 : imgId = results[i].episode_id + 3
         }
-
         container.insertAdjacentHTML('beforeend', `
                     <div class="film card" id=${imgId}>
                         <img class="img" src='${getFilmImage(imgId)}' alt="'Image not found'" id=${imgId}/>
-                        <div class="card-body d-flex-wrap align" id=${imgId}>
-                            <h4 class="card-title" id=${imgId}> ${wookiee ? 'Whrascwo' : 'Name'}: ${results[i].title} </h4>
-                            <h5 class="card-subtitle" id=${imgId}> ${wookiee ? 'Rcwoanworacwo waraaowo' : 'Release date'}: ${results[i].release_date} </h5>
-                            <h5 class="card-subtitle" id=${imgId}> ${wookiee ? 'Waahrcwooaaooorc' : 'Director'}: ${results[i].director} </h5>
+                        <div class="card-body d-flex flex-column justify-content-end align-items-center" id=${imgId}>
+                            <h4 class="card-title" id=${imgId}> ${wookiee ? 'Whrascwo' : 'Name'}: ${filmInfo.title} </h4>
+                            <h5 class="card-subtitle" id=${imgId}> ${wookiee ? 'Rcwoanworacwo waraaowo' : 'Release date'}: ${filmInfo.release_date} </h5>
+                            <h5 class="card-subtitle" id=${imgId}> ${wookiee ? 'Waahrcwooaaooorc' : 'Director'}: ${filmInfo.director} </h5>
                         </div >
                     </div>`);
 
         const film = document.getElementById(imgId);
 
         film.addEventListener('click', (e) =>
-            getFilm(e.target.id).then(data => {
+            (wookiee ? getWookieeFilm(e.target.id) : getFilm(e.target.id)).then(data => {
                 clearContext();
                 data.peopleId.forEach(id => searchPerson(id))
             })
@@ -223,12 +230,35 @@ getFilms = async () => {
     };
 };
 
+_transformPeople = (people) => {
+    return wookiee ? {
+        id: _extractId(people),
+        name: people.whrascwo,
+        gender: people.rrwowhwaworc,
+        birthYear: people.rhahrcaoac_roworarc,
+    } : {
+        id: _extractId(people),
+        name: people.name,
+        gender: people.gender,
+        birthYear: people.birth_year,
+    };
+}
+
+getPerson = async (id) => {
+    const people = wookiee ? await getResourse(`/people/${id}/?format=wookiee`) : await getResourse(`/people/${id}`);
+    return _transformPeople(people);
+}
+
+getPersonImage = ({ id }) => {
+    return `${_imgBase}/characters/${id}.jpg`
+}
+
 const searchPerson = async function (id) {
-    getPerson(id).then(person => {
+    await getPerson(id).then(person => {
         container.insertAdjacentHTML('beforeend', `
         <div class="person card">
             <img class="img" src='${getPersonImage({ id })}'>
-            <div class="card-body d-flex-wrap align">
+            <div class="card-body d-flex flex-column justify-content-end align-items-center">
                 <h3 >${wookiee ? 'Whrascwo' : 'Name'}: ${person.name}</h3 >
                 <h5 class="card-subtitle">${wookiee ? 'Rhahrcaoac roworarc' : 'Birth Year'}: ${person.birthYear}</h5>
                 <h5 class="card-subtitle">${wookiee ? 'Rrwowhwaworc' : 'Gender'}: ${person.gender}</h5>
@@ -239,6 +269,7 @@ const searchPerson = async function (id) {
 };
 
 getFilms();
+
 const home = document.querySelector('#films');
 home.addEventListener('click', getFilms);
 
@@ -249,12 +280,12 @@ const form = document.querySelector('#searchForm');
 const input = document.querySelector('#searchInput');
 const button = document.querySelector('#searchButton');
 
-const searchByForm = () => {
+const searchByForm = (count) => {
     const inputId = Math.floor(input.value);
-    if (inputId < 0 || inputId > filmsCount || !Number(inputId)) {
+    if (inputId < 0 || inputId > count || !Number(inputId)) {
         console.log('Enter a movie number no larger than their number')
     }
-    getFilm(inputId).then(data => {
+    (wookiee ? getWookieeFilm(inputId) : getFilm(inputId)).then(data => {
         clearContext();
         data.peopleId.forEach(id => searchPerson(id))
     });
