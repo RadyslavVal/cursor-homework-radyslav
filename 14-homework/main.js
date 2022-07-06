@@ -101,11 +101,11 @@ getAllPlanets = async () => {
 
     next = wookiee ? res.whwokao : res.next;
     prev = wookiee ? res.akrcwohoahoohuc : res.previous;
-    if (next != null) {
+    if (next != null && next != 'whhuanan') {
         next = _extractPage(next);
         nextPage.classList.remove('disabled');
     }
-    if (prev != null) {
+    if (prev != null && prev != 'whhuanan') {
         prev = _extractPage(prev);
         prevPage.classList.remove('disabled');
     };
