@@ -15,10 +15,26 @@ const buttonBlocks = document.getElementById('buttonBlock');
 
 let wookiee = false;
 const wookieeButton = document.getElementById('wookieeButton');
-const reload = function () {
-    wookiee = !wookiee;
-}
 
+let peopleListId;
+
+const reload = async function () {
+    const blockClassName = document.querySelector('.card');
+    const mainClass = blockClassName.className.replace(' card', '');
+    wookiee = !wookiee;
+    switch (mainClass) {
+        case 'film':
+            getFilms();
+            break;
+        case 'person':
+            clearContext()
+            peopleListId.forEach(id => searchPerson(id));
+            break;
+        case 'planet':
+            getAllPlanets();
+            break;
+    }
+}
 wookieeButton.addEventListener('click', reload);
 
 clearContext = function () {
@@ -181,7 +197,7 @@ _transformFilm = (film) => {
     };
 }
 
-let filmsCount = 0;
+let filmsCount;
 getFilms = async () => {
     clearContext();
 
@@ -189,7 +205,7 @@ getFilms = async () => {
         await getWookieeAllFilms() :
         await getResourse(`/films/`)
 
-    const count = wookiee ? res.oaoohuwhao : res.count;
+    filmsCount = wookiee ? res.oaoohuwhao : res.count;
 
     let results = await (wookiee ? res.rcwochuanaoc : res.results).sort(function (a, b) {
         if (wookiee ? a.woakahcoowawo_ahwa > b.woakahcoowawo_ahwa : a.episode_id > b.episode_id) {
@@ -201,7 +217,7 @@ getFilms = async () => {
         return 0;
     }); // Сортую для корректного відобюраження хронології;
 
-    for (let i = 0; i < count; i++) {
+    for (let i = 0; i < filmsCount; i++) {
         const filmInfo = _transformFilm(results[i]);
         let imgId;
         if (wookiee) {
@@ -220,11 +236,11 @@ getFilms = async () => {
                     </div>`);
 
         const film = document.getElementById(imgId);
-
         film.addEventListener('click', (e) =>
             (wookiee ? getWookieeFilm(e.target.id) : getFilm(e.target.id)).then(data => {
                 clearContext();
-                data.peopleId.forEach(id => searchPerson(id))
+                peopleListId = data.peopleId;
+                peopleListId.forEach(id => searchPerson(id))
             })
         );
     };
@@ -253,6 +269,7 @@ getPersonImage = ({ id }) => {
     return `${_imgBase}/characters/${id}.jpg`
 }
 
+
 const searchPerson = async function (id) {
     await getPerson(id).then(person => {
         container.insertAdjacentHTML('beforeend', `
@@ -274,21 +291,26 @@ const home = document.querySelector('#films');
 home.addEventListener('click', getFilms);
 
 const planets = document.querySelector('#planets');
-planets.addEventListener('click', getAllPlanets);
+planets.addEventListener('click', () => {
+    page = 1;
+    getAllPlanets()
+});
 
 const form = document.querySelector('#searchForm');
 const input = document.querySelector('#searchInput');
 const button = document.querySelector('#searchButton');
 
-const searchByForm = (count) => {
+const searchByForm = () => {
     const inputId = Math.floor(input.value);
-    if (inputId < 0 || inputId > count || !Number(inputId)) {
+    if (!inputId || inputId < 0 || inputId > filmsCount || !Number(inputId)) {
         console.log('Enter a movie number no larger than their number')
     }
-    (wookiee ? getWookieeFilm(inputId) : getFilm(inputId)).then(data => {
-        clearContext();
-        data.peopleId.forEach(id => searchPerson(id))
-    });
+    else {
+        (wookiee ? getWookieeFilm(inputId) : getFilm(inputId)).then(data => {
+            clearContext();
+            data.peopleId.forEach(id => searchPerson(id))
+        })
+    };
 };
 
 const onFormSubmit = (e) => {
