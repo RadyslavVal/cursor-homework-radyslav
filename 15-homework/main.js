@@ -10,9 +10,9 @@ function* createIdGenerator() {
 
 const idGenerator = createIdGenerator();
 
-/* console.log(idGenerator.next().value)
 console.log(idGenerator.next().value)
-console.log(idGenerator.next().value) */
+console.log(idGenerator.next().value)
+console.log(idGenerator.next().value)
 
 let fontSize = 0;
 function* newFontGenerator(value) {
