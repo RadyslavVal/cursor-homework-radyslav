@@ -19,11 +19,12 @@ textBlock.className = 'textBlock';
 app.append(funcBlock);
 funcBlock.append(input);
 funcBlock.append(button);
-app.append(textBlock);
+app.append(textBlock)
 
-
+let chinCharArr = [];
 async function getRandomChinese(length) {
     if (textBlock.hasChildNodes) {
+        chinCharArr = []
         textBlock.replaceChildren();
     };
 
@@ -34,8 +35,11 @@ async function getRandomChinese(length) {
         await new Promise((res) => {
             setTimeout(() => res(), 50)
         });
-        textBlock.append(chinChar);
+        chinCharArr.push(chinChar);
         length--;
     };
+    if (length == 0) {
+        chinCharArr.forEach(elem => textBlock.append(elem))
+    }
 };
 
