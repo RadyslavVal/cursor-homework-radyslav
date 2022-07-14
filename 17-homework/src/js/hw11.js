@@ -5,44 +5,43 @@ const getRandomValues = (min, max) => {
 };
 
 
-let app = document.querySelector('.app');
-let square = document.createElement('div');
+const app = document.querySelector('.app');
+const square = document.createElement('div');
 square.id = 'square';
-let buttonBlock = document.createElement('div');
+const buttonBlock = document.createElement('div');
 buttonBlock.className = "d-flex";
 app.appendChild(buttonBlock)
 
-let buttonBlocks = document.createElement('button');
-buttonBlocks.className = "btn btn-success";
-buttonBlocks.textContent = 'generateBlocks()';
-buttonBlocks.onclick = generateBlocks;
+const buttonGenerate = document.createElement('button');
+buttonGenerate.className = "btn btn-success";
+buttonGenerate.textContent = 'generateBlocks()';
+buttonGenerate.onclick = () => generateBlocks();
 
-let buttonBlocksInterval = document.createElement('button');
-buttonBlocksInterval.className = "btn btn-warning";
-buttonBlocksInterval.textContent = 'generateBlocksInterval()';
-buttonBlocksInterval.onclick = generateBlocksInterval;
+const buttonInterval = document.createElement('button');
+buttonInterval.className = "btn btn-warning";
+buttonInterval.textContent = 'generateBlocksInterval()';
+buttonInterval.onclick = () => generateBlocksInterval();
 
-buttonBlock.appendChild(buttonBlocks);
-buttonBlock.appendChild(buttonBlocksInterval);
-
+buttonBlock.appendChild(buttonGenerate);
+buttonBlock.appendChild(buttonInterval);
 
 let nIntervId;
-function stopColor() {
+const stopColor = () => {
     clearInterval(nIntervId);
     nIntervId = null;
 };
 
 
-function blocks() {
+const blocks = () => {
     app.appendChild(square);
-    let squareBlock = document.querySelector('#square');
+    const squareBlock = document.querySelector('#square');
 
     if (squareBlock.hasChildNodes) {
         squareBlock.replaceChildren();
     };
 
-    for (i = 0; i < 25; i++) {
-        let squares = document.createElement('div');
+    for (let i = 0; i < 25; i++) {
+        const squares = document.createElement('div');
         squares.id = 'square__element';
         squares.style.backgroundColor = `rgb(${getRandomValues(0, 255)}, ${getRandomValues(0, 255)}, ${getRandomValues(0, 255)})`;
         squareBlock.append(squares);
@@ -50,13 +49,13 @@ function blocks() {
 };
 
 
-function generateBlocks() {
+const generateBlocks = () => {
     stopColor();
     blocks();
 };
 
 
-function generateBlocksInterval() {
+const generateBlocksInterval = () => {
     if (!nIntervId) {
         nIntervId = setInterval(blocks, 1000);
     };

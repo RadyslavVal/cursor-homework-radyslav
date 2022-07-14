@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link
+      rel="stylesheet"
+      href="https://bootswatch.com/5/slate/bootstrap.min.css"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lecture #14</title>
+  <script defer src="../js/hw14.js"></script></head>
+  <body class="app">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container-fluid">
+        <div class="navbar-brand">StarWars</div>
+        <button
+          class="navbar-toggler collapsed"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarColor02"
+          aria-controls="navbarColor02"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor02">
+          <ul class="navbar-nav me-auto" id="menu">
+            <li class="nav-item" id="films">
+              <a class="nav-link" href="#"
+                >Films
+                <span class="visually-hidden">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item" id="planets">
+              <a class="nav-link" href="#">Planets</a>
+            </li>
+          </ul>
+          <form class="d-flex" id="searchForm">
+            <button
+              class="btn btn-secondary my-2 my-sm-0 wookiee"
+              type="button"
+              id="wookieeButton"
+            >
+              Wookiee
+            </button>
+            <input
+              class="form-control me-sm-2"
+              type="text"
+              placeholder="Movie number by release"
+              id="searchInput"
+            />
+            <button
+              class="btn btn-secondary my-2 my-sm-0"
+              type="submit"
+              id="searchButton"
+            >
+              Search
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <div
+      class="buttonBlock d-flex justify-content-around"
+      id="buttonBlock"
+    ></div>
+    <div class="d-flex flex-wrap justify-content-around" id="container"></div>
+  </body>
+</html>
