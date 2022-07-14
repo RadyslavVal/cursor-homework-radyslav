@@ -16,7 +16,7 @@
   \************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _styles_hw12_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../styles/hw12.css */ \"./src/styles/hw12.css\");\n\n\n\nvar soundsUrl = ['../assets/00.mp3', '../assets/01.mp3', '../assets/02.mp3', '../assets/03.mp3', '../assets/04.mp3', '../assets/05.mp3', '../assets/06.mp3', '../assets/07.mp3'];\nvar app = document.querySelector('.app');\nvar keysBlock = document.createElement('div');\nkeysBlock.className = \"buttons\";\napp.appendChild(keysBlock);\nvar keysId = ['KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK'];\n\nvar _loop = function _loop(i) {\n  var key = document.createElement('div');\n  var audio = document.createElement('audio');\n  key.id = audio.id = keysId[i];\n  audio.src = soundsUrl[i];\n  key.className = \"btn btn-primary\";\n  key.textContent = keysId[i][3];\n  key.addEventListener('click', function () {\n    return audio.play();\n  });\n  keysBlock.append(key);\n  app.appendChild(audio);\n};\n\nfor (var i = 0; i < keysId.length; i++) {\n  _loop(i);\n}\n\n;\ndocument.addEventListener('keydown', function (event) {\n  if (keysId.includes(event.code)) {\n    document.getElementById(event.code).click();\n  }\n});\n\n//# sourceURL=webpack://17-homework/./src/js/hw12.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _styles_hw12_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../styles/hw12.css */ \"./src/styles/hw12.css\");\n/* harmony import */ var _assets_00_mp3__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../assets/00.mp3 */ \"./src/assets/00.mp3\");\n/* harmony import */ var _assets_01_mp3__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../assets/01.mp3 */ \"./src/assets/01.mp3\");\n/* harmony import */ var _assets_02_mp3__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../assets/02.mp3 */ \"./src/assets/02.mp3\");\n/* harmony import */ var _assets_03_mp3__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../assets/03.mp3 */ \"./src/assets/03.mp3\");\n/* harmony import */ var _assets_04_mp3__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../assets/04.mp3 */ \"./src/assets/04.mp3\");\n/* harmony import */ var _assets_05_mp3__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../assets/05.mp3 */ \"./src/assets/05.mp3\");\n/* harmony import */ var _assets_06_mp3__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../assets/06.mp3 */ \"./src/assets/06.mp3\");\n/* harmony import */ var _assets_07_mp3__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../assets/07.mp3 */ \"./src/assets/07.mp3\");\n\n\n\n\n\n\n\n\n\n\n\nvar soundsUrl = [_assets_00_mp3__WEBPACK_IMPORTED_MODULE_1__, _assets_01_mp3__WEBPACK_IMPORTED_MODULE_2__, _assets_02_mp3__WEBPACK_IMPORTED_MODULE_3__, _assets_03_mp3__WEBPACK_IMPORTED_MODULE_4__, _assets_04_mp3__WEBPACK_IMPORTED_MODULE_5__, _assets_05_mp3__WEBPACK_IMPORTED_MODULE_6__, _assets_06_mp3__WEBPACK_IMPORTED_MODULE_7__, _assets_07_mp3__WEBPACK_IMPORTED_MODULE_8__];\nvar app = document.querySelector('.app');\nvar keysBlock = document.createElement('div');\nkeysBlock.className = \"buttons\";\napp.appendChild(keysBlock);\nvar keysId = ['KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK'];\n\nvar _loop = function _loop(i) {\n  var key = document.createElement('div');\n  var audio = document.createElement('audio');\n  key.id = audio.id = keysId[i];\n  audio = new Audio(soundsUrl[i]);\n  key.className = \"btn btn-primary\";\n  key.textContent = keysId[i][3];\n  key.addEventListener('click', function () {\n    return audio.play();\n  });\n  keysBlock.append(key);\n  app.appendChild(audio);\n};\n\nfor (var i = 0; i < keysId.length; i++) {\n  _loop(i);\n}\n\n;\ndocument.addEventListener('keydown', function (event) {\n  if (keysId.includes(event.code)) {\n    document.getElementById(event.code).click();\n  }\n});\n\n//# sourceURL=webpack://17-homework/./src/js/hw12.js?");
 
 /***/ }),
 
@@ -118,6 +118,86 @@ eval("\n\n/* istanbul ignore next  */\nfunction apply(styleElement, options, obj
 
 eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElement) {\n  if (styleElement.styleSheet) {\n    styleElement.styleSheet.cssText = css;\n  } else {\n    while (styleElement.firstChild) {\n      styleElement.removeChild(styleElement.firstChild);\n    }\n\n    styleElement.appendChild(document.createTextNode(css));\n  }\n}\n\nmodule.exports = styleTagTransform;\n\n//# sourceURL=webpack://17-homework/./node_modules/style-loader/dist/runtime/styleTagTransform.js?");
 
+/***/ }),
+
+/***/ "./src/assets/00.mp3":
+/*!***************************!*\
+  !*** ./src/assets/00.mp3 ***!
+  \***************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"assets/00.306e2c6301713feeef1e.mp3\";\n\n//# sourceURL=webpack://17-homework/./src/assets/00.mp3?");
+
+/***/ }),
+
+/***/ "./src/assets/01.mp3":
+/*!***************************!*\
+  !*** ./src/assets/01.mp3 ***!
+  \***************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"assets/01.247a8774364a14417014.mp3\";\n\n//# sourceURL=webpack://17-homework/./src/assets/01.mp3?");
+
+/***/ }),
+
+/***/ "./src/assets/02.mp3":
+/*!***************************!*\
+  !*** ./src/assets/02.mp3 ***!
+  \***************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"assets/02.dcf4f09138a081c0b452.mp3\";\n\n//# sourceURL=webpack://17-homework/./src/assets/02.mp3?");
+
+/***/ }),
+
+/***/ "./src/assets/03.mp3":
+/*!***************************!*\
+  !*** ./src/assets/03.mp3 ***!
+  \***************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"assets/03.df5d421e7f397dce4119.mp3\";\n\n//# sourceURL=webpack://17-homework/./src/assets/03.mp3?");
+
+/***/ }),
+
+/***/ "./src/assets/04.mp3":
+/*!***************************!*\
+  !*** ./src/assets/04.mp3 ***!
+  \***************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"assets/04.9e71114cfb0baa44a196.mp3\";\n\n//# sourceURL=webpack://17-homework/./src/assets/04.mp3?");
+
+/***/ }),
+
+/***/ "./src/assets/05.mp3":
+/*!***************************!*\
+  !*** ./src/assets/05.mp3 ***!
+  \***************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"assets/05.8ec92a12a2e995092ad6.mp3\";\n\n//# sourceURL=webpack://17-homework/./src/assets/05.mp3?");
+
+/***/ }),
+
+/***/ "./src/assets/06.mp3":
+/*!***************************!*\
+  !*** ./src/assets/06.mp3 ***!
+  \***************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"assets/06.a5a36f61791ac5ad20de.mp3\";\n\n//# sourceURL=webpack://17-homework/./src/assets/06.mp3?");
+
+/***/ }),
+
+/***/ "./src/assets/07.mp3":
+/*!***************************!*\
+  !*** ./src/assets/07.mp3 ***!
+  \***************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"assets/07.05338741a7ef2e8e8c9c.mp3\";\n\n//# sourceURL=webpack://17-homework/./src/assets/07.mp3?");
+
 /***/ })
 
 /******/ 	});
@@ -171,6 +251,18 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
 /******/ 		};
 /******/ 	})();
 /******/ 	
+/******/ 	/* webpack/runtime/global */
+/******/ 	(() => {
+/******/ 		__webpack_require__.g = (function() {
+/******/ 			if (typeof globalThis === 'object') return globalThis;
+/******/ 			try {
+/******/ 				return this || new Function('return this')();
+/******/ 			} catch (e) {
+/******/ 				if (typeof window === 'object') return window;
+/******/ 			}
+/******/ 		})();
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
@@ -185,6 +277,26 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/publicPath */
+/******/ 	(() => {
+/******/ 		var scriptUrl;
+/******/ 		if (__webpack_require__.g.importScripts) scriptUrl = __webpack_require__.g.location + "";
+/******/ 		var document = __webpack_require__.g.document;
+/******/ 		if (!scriptUrl && document) {
+/******/ 			if (document.currentScript)
+/******/ 				scriptUrl = document.currentScript.src
+/******/ 			if (!scriptUrl) {
+/******/ 				var scripts = document.getElementsByTagName("script");
+/******/ 				if(scripts.length) scriptUrl = scripts[scripts.length - 1].src
+/******/ 			}
+/******/ 		}
+/******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
+/******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
+/******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
+/******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
+/******/ 		__webpack_require__.p = scriptUrl + "../";
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/nonce */

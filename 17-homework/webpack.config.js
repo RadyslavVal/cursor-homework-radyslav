@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 pages = [
   "index",
   "hw2",
+  "hw11",
   "hw12",
   "hw13",
   "hw14",
@@ -23,7 +24,7 @@ module.exports = {
     historyApiFallback: true,
     open: true,
     static: {
-      directory: "./dist/templates",
+      directory: "./dist/pages",
     },
     compress: true,
     devMiddleware: {
@@ -38,7 +39,7 @@ module.exports = {
       },
       {
         test: /\.html$/i,
-        loader: "html-loader",
+        use: ["html-loader"],
       },
       {
         test: /\.m?js$/,
@@ -50,6 +51,10 @@ module.exports = {
           }
         }
       },
+      {
+        test: /\.(ogg|mp3|wav|mpe?g)$/i,
+        type: "asset/resource"
+      }
     ],
   },
   plugins: [].concat(
@@ -58,7 +63,7 @@ module.exports = {
         new HtmlWebpackPlugin({
           inject: true,
           template: path.resolve(__dirname, `./src/pages/${page}.html`),
-          filename: `./templates/${page}.html`,
+          filename: `./pages/${page}.html`,
           chunks: [page]
         })
     )),
