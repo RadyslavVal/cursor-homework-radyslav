@@ -1,0 +1,16 @@
+#square {
+  display: inline-flex;
+  width: 250px;
+  flex-wrap: wrap;
+  margin: 10px;
+}
+
+#square__element {
+  height: 50px;
+  width: 50px;
+}
+
+.btn-success{
+  margin: 0 10px 0 10px;
+}
+
