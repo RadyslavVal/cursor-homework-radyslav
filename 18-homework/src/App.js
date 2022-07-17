@@ -14,6 +14,11 @@ function App() {
       content: `Guys, I'm sorry, but she's my granddaughter)`,
       image: "https://static1.moviewebimages.com/wordpress/wp-content/uploads/article/UZcoWB0AIq1flmJP5lxen8fcXStmnD.jpg",
       date: "17.07.2022",
+      postInfo: {
+        likes: '5',
+        comments: '11',
+        reposts: '1',
+      }
     },
     {
       id: 2,
@@ -25,6 +30,11 @@ function App() {
       content: "She was my last Jedi apprentice. And after my rise, Rey adopts 'Skywalker' as her surname.",
       image: "https://www.starwarsnewsnet.com/wp-content/uploads/2017/05/Luke-and-Rey.jpg",
       date: "16.07.2022",
+      postInfo: {
+        likes: '8',
+        comments: '17',
+        reposts: '4',
+      }
     },
     {
       id: 3,
@@ -36,6 +46,11 @@ function App() {
       content: "WTF? Who is Ray? Why she is Skywalker? Luke...?",
       image: "https://specials-images.forbesimg.com/imageserve/5e63b3c8e1e617000759130e/960x0.jpg?fit=scale",
       date: "15.07.2022",
+      postInfo: {
+        likes: '23',
+        comments: '111',
+        reposts: '33',
+      }
     },
   ]
   return (
