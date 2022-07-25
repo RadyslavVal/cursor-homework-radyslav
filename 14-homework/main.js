@@ -16,7 +16,25 @@ const buttonBlocks = document.getElementById('buttonBlock');
 let wookiee = false;
 const wookieeButton = document.getElementById('wookieeButton');
 
-let peopleListId;
+let peopleListId = [];
+const BAD_PERSON_ID = ['35', '39', '61', '66']
+
+const preloader = document.getElementById('preloader');
+container.onload = () => {
+    showPreloader()
+}
+function showPreloader() {
+    if (!preloader.classList.contains('show')) {
+        preloader.classList.add('show');
+    }
+}
+function hidePreloader() {
+    setTimeout(function () {
+        if (preloader.classList.contains('show')) {
+            preloader.classList.remove('show');
+        }
+    }, 1000)
+}
 
 const reload = async function () {
     const blockClassName = document.querySelector('.card');
@@ -28,7 +46,8 @@ const reload = async function () {
             break;
         case 'person':
             clearContext()
-            peopleListId.forEach(id => searchPerson(id));
+            Promise.all(peopleListId.filter(id => !BAD_PERSON_ID.includes(id)).forEach(id => searchPerson(id)))
+            //peopleListId.forEach(id => searchPerson(id));
             break;
         case 'planet':
             getAllPlanets();
@@ -47,11 +66,12 @@ clearContext = function () {
 }
 
 getResourse = async (url) => {
+    showPreloader();
     const res = await fetch(`${_apiBase}${url}`)
     if (!res.ok) {
-        throw new Error(`Could not fetch ${url}` +
-            `, received ${res.status}`)
+        throw new Error(`API error`)
     };
+    hidePreloader()
     return await res.json();
 }
 
@@ -67,9 +87,11 @@ _extractPage = (item) => {
 }
 
 getAllPlanetsWookiee = async () => {
+    showPreloader();
     const res = await fetch(`${_apiBase}/planets/?format=wookiee&page=${page}`).then((response) => {
         return response.text()
     }).then(response => { return JSON.parse(response.replaceAll(`whhuanan`, `"whhuanan"`)) })
+    hidePreloader()
     return res;
 }
 
@@ -164,10 +186,12 @@ getWookieeFilm = async (id) => {
 }
 
 getWookieeAllFilms = async (id = '') => {
+    showPreloader()
     const res = await fetch(`https://swapi.dev/api/films/${id}?format=wookiee`)
         .then((response) => {
             return response.text()
         }).then((response) => { return JSON.parse(response.replaceAll(`whhuanan`, `"whhuanan"`).replaceAll(`\\`, "")) })
+    hidePreloader()
     return res;
 }
 
@@ -237,11 +261,13 @@ getFilms = async () => {
 
         const film = document.getElementById(imgId);
         film.addEventListener('click', (e) =>
-            (wookiee ? getWookieeFilm(e.target.id) : getFilm(e.target.id)).then(data => {
-                clearContext();
-                peopleListId = data.peopleId;
-                peopleListId.forEach(id => searchPerson(id))
-            })
+            (wookiee ? getWookieeFilm(e.target.id) : getFilm(e.target.id))
+                .then(data => {
+                    clearContext();
+                    peopleListId = data.peopleId;
+                    Promise.all(peopleListId.filter(id => !BAD_PERSON_ID.includes(id)).forEach(id => searchPerson(id)))
+                    //peopleListId.forEach(id => searchPerson(id))
+                })
         );
     };
 };
@@ -261,7 +287,9 @@ _transformPeople = (people) => {
 }
 
 getPerson = async (id) => {
-    const people = wookiee ? await getResourse(`/people/${id}/?format=wookiee`) : await getResourse(`/people/${id}`);
+    const people = wookiee ?
+        await getResourse(`/people/${id}/?format=wookiee`) :
+        await getResourse(`/people/${id}`);
     return _transformPeople(people);
 }
 
@@ -308,7 +336,9 @@ const searchByForm = () => {
     else {
         (wookiee ? getWookieeFilm(inputId) : getFilm(inputId)).then(data => {
             clearContext();
-            data.peopleId.forEach(id => searchPerson(id))
+            peopleListId = data.peopleId;
+            Promise.all(peopleListId.filter(id => !BAD_PERSON_ID.includes(id)).forEach(id => searchPerson(id)))
+            //data.peopleId.forEach(id => searchPerson(id))
         })
     };
 };
