@@ -271,8 +271,7 @@ getFilms = async () => {
                 .then(data => {
                     clearContext();
                     peopleListId = data.peopleId;
-                    Promise.all(peopleListId.filter(id => !BAD_PERSON_ID.includes(id)).forEach(id => searchPerson(id)))
-                    //peopleListId.forEach(id => searchPerson(id))
+                    Promise.all(peopleListId.filter(id => wookiee ? !BAD_PERSON_ID.includes(id) : id).forEach(id => searchPerson(id)))
                 })
         );
     };
