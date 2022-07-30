@@ -27,7 +27,7 @@ function App() {
         avatar: "https://starwars-visualguide.com/assets/img/characters/1.jpg",
         nickname: "@Wormie",
       },
-      content: "She was my last Jedi apprentice. And after my rise, Rey adopts 'Skywalker' as her surname.",
+      content: "She was my last Jedi apprentice. And nothing more...",
       image: "https://www.starwarsnewsnet.com/wp-content/uploads/2017/05/Luke-and-Rey.jpg",
       date: "16.07.2022",
       postInfo: {

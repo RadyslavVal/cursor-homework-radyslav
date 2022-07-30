@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/cursor-homework-radyslav/18-homework/build/static/css/main.fc87afe3.css",
-    "main.js": "/cursor-homework-radyslav/18-homework/build/static/js/main.9961251c.js",
-    "static/js/787.629e2d66.chunk.js": "/cursor-homework-radyslav/18-homework/build/static/js/787.629e2d66.chunk.js",
-    "index.html": "/cursor-homework-radyslav/18-homework/build/index.html",
-    "main.fc87afe3.css.map": "/cursor-homework-radyslav/18-homework/build/static/css/main.fc87afe3.css.map",
-    "main.9961251c.js.map": "/cursor-homework-radyslav/18-homework/build/static/js/main.9961251c.js.map",
-    "787.629e2d66.chunk.js.map": "/cursor-homework-radyslav/18-homework/build/static/js/787.629e2d66.chunk.js.map"
+    "main.css": "/static/css/main.7fe78376.css",
+    "main.js": "/static/js/main.1b68fa38.js",
+    "static/js/787.629e2d66.chunk.js": "/static/js/787.629e2d66.chunk.js",
+    "index.html": "/index.html",
+    "main.7fe78376.css.map": "/static/css/main.7fe78376.css.map",
+    "main.1b68fa38.js.map": "/static/js/main.1b68fa38.js.map",
+    "787.629e2d66.chunk.js.map": "/static/js/787.629e2d66.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.fc87afe3.css",
-    "static/js/main.9961251c.js"
+    "static/css/main.7fe78376.css",
+    "static/js/main.1b68fa38.js"
   ]
 }

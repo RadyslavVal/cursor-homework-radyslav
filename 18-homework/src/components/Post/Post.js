@@ -1,36 +1,48 @@
 import React from 'react';
 import './Post.css'
+import like from './image/like.png';
+import comment from './image/comment.png';
+import repost from './image/repost.png';
 
 function Post({ data }) {
     const { author, content, image, date, postInfo } = data;
-    const { name, photo, nickname } = author;
+    const { name, avatar, nickname } = author;
     const { likes, comments, reposts } = postInfo;
     return (
         <div className="post">
             <div className="post-card">
                 <div className="post-header">
                     <div className="title-avatar">
-                        <img src={author.avatar} alt="Avatar" />
+                        <img src={avatar} alt="Avatar" />
                     </div>
                     <div className='post-content'>
                         <div className="post-title">
                             <div className="author-info">
-                                <div className="author-nameSername">{author.name}</div>
-                                <div className="author-nickname">{author.nickname}</div>
+                                <div className="author-nameSername">{name}</div>
+                                <div className="author-nickname">{nickname}</div>
                             </div>
-                            <div className="post-date">{data.date}</div>
+                            <div className="post-date">{date}</div>
                         </div>
-                        <div className="post-text">{data.content}</div>
+                        <div className="post-text">{content}</div>
                     </div>
                 </div>
                 <div className="post-image">
-                    <img src={data.image} alt="Content Image" />
+                    <img src={image} alt="Content" />
                 </div>
-                {/* <div className="post-panel">
-                    <div className="post-likes">{postInfo.likes}</div>
-                    <div className="post-comments">{postInfo.comments}</div>
-                    <div className="post-reposts">{postInfo}</div>
-                </div> */}
+                <p className='post-footer'>
+                    <span className="post-element">
+                        <img src={like} alt='like' className='footer-image' />
+                        <label> {likes} Likes</label>
+                    </span>
+                    <span className="post-element">
+                        <img src={comment} alt='comment' className='footer-image' />
+                        <label> {comments} Comments</label>
+                    </span>
+                    <span className="post-element">
+                        <img src={repost} alt='repost' className='footer-image' />
+                        <label> {reposts} Reposts</label>
+                    </span>
+                </p>
             </div>
         </div>
     );

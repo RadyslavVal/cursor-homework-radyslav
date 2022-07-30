@@ -58,15 +58,16 @@
   margin: 0 auto;
   border-radius: 35px;
 }
-.post-panel {
+.post-footer {
   display: flex;
   padding: 0 0 10px 0;
   justify-content: space-evenly;
   color: #e9ecef;
 }
-.post-likes {
+.post-element {
+  display: flex;
+  align-items: center;
 }
-.post-comments {
-}
-.post-reposts {
+.footer-image {
+  margin: 0 10px 0 0;
 }
