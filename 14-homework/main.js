@@ -158,7 +158,13 @@ getPlanet = async (id) => {
 }
 
 getPlanetImage = ({ id }) => {
-    return `${_imgBase}/planets/${id}.jpg`
+    try {
+        return `${_imgBase}/planets/${id}.jpg`
+    }
+    catch (e) {
+        return `${_imgBase}/big-placeholder.jpg`
+    }
+
 }
 
 _transformPlanet = async (planet) => {
