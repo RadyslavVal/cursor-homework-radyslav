@@ -135,7 +135,6 @@ getAllPlanets = async () => {
         let planetInfo = await _transformPlanet(results[i]);
         let id = planetInfo.id;
         let url = await getPlanetImage({ id });
-        console.log(url);
         container.insertAdjacentHTML('beforeend', `
                     <div class="planet card">
                         <img class="img" src=${url} id="planet${id}" />
@@ -161,12 +160,6 @@ getPlanetImage = async ({ id }) => {
         return `${_imgBase}/big-placeholder.jpg`
     }
     return imgData.url;
-    /* try {
-        return imgData.url;
-    }
-    catch (e) {
-        return `${_imgBase}/big-placeholder.jpg`
-    } */
 }
 
 _transformPlanet = async (planet) => {
