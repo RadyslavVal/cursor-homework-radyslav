@@ -1,7 +1,5 @@
-import '../styles/hw14.css';
-
-const _apiBase = 'https://swapi.dev/api';
-const _imgBase = 'https://starwars-visualguide.com/assets/img';
+_apiBase = 'https://swapi.dev/api';
+_imgBase = 'https://starwars-visualguide.com/assets/img';
 let controller = new AbortController();
 
 const toggler = document.querySelector('.navbar-toggler');
@@ -18,7 +16,25 @@ const buttonBlocks = document.getElementById('buttonBlock');
 let wookiee = false;
 const wookieeButton = document.getElementById('wookieeButton');
 
-let peopleListId;
+let peopleListId = [];
+const BAD_PERSON_ID = ['35', '39', '61', '66']
+
+const preloader = document.getElementById('preloader');
+container.onload = () => {
+    showPreloader()
+}
+function showPreloader() {
+    if (!preloader.classList.contains('show')) {
+        preloader.classList.add('show');
+    }
+}
+function hidePreloader() {
+    setTimeout(function () {
+        if (preloader.classList.contains('show')) {
+            preloader.classList.remove('show');
+        }
+    }, 1500)
+}
 
 const reload = async function () {
     const blockClassName = document.querySelector('.card');
@@ -29,8 +45,9 @@ const reload = async function () {
             getFilms();
             break;
         case 'person':
-            clearContext()
-            peopleListId.forEach(id => searchPerson(id));
+            clearContext();
+            Promise.all(peopleListId.filter(id => wookiee ? !BAD_PERSON_ID.includes(id) : id).map(id => searchPerson(id)))
+                .then(() => hidePreloader());
             break;
         case 'planet':
             getAllPlanets();
@@ -39,7 +56,7 @@ const reload = async function () {
 }
 wookieeButton.addEventListener('click', reload);
 
-const clearContext = function () {
+clearContext = function () {
     if (container.hasChildNodes) {
         container.replaceChildren();
     };
@@ -48,34 +65,36 @@ const clearContext = function () {
     };
 }
 
-const getResourse = async (url) => {
+getResourse = async (url) => {
+    showPreloader();
     const res = await fetch(`${_apiBase}${url}`)
     if (!res.ok) {
-        throw new Error(`Could not fetch ${url}` +
-            `, received ${res.status}`)
+        throw new Error(`API error`)
     };
     return await res.json();
 }
 
 const idReaExp = /\/([0-9]*)\/$/;
-const _extractId = async (item) => {
+_extractId = async (item) => {
     return wookiee ? await item.hurcan.match(idReaExp)[1] : await item.url.match(idReaExp)[1];
 }
 
 let page = 1;
-const _extractPage = (item) => {
+_extractPage = (item) => {
     const idreaexp = /[0-9]/g;
     return item.match(idreaexp);
 }
 
-const getAllPlanetsWookiee = async () => {
+getAllPlanetsWookiee = async () => {
+    showPreloader();
     const res = await fetch(`${_apiBase}/planets/?format=wookiee&page=${page}`).then((response) => {
         return response.text()
     }).then(response => { return JSON.parse(response.replaceAll(`whhuanan`, `"whhuanan"`)) })
+    hidePreloader()
     return res;
 }
 
-const getAllPlanets = async () => {
+getAllPlanets = async () => {
     clearContext();
 
     let next;
@@ -115,10 +134,10 @@ const getAllPlanets = async () => {
     for (let i = 0; i < 10; i++) {
         let planetInfo = await _transformPlanet(results[i]);
         let id = planetInfo.id;
-
+        let url = await getPlanetImage({ id });
         container.insertAdjacentHTML('beforeend', `
                     <div class="planet card">
-                        <img class="img" src=${getPlanetImage({ id })} id="planet${id}"/>
+                        <img class="img" src=${url} id="planet${id}" />
                         <div class="card-body d-flex flex-column justify-content-end align-items-center">
                             <h3 class='card-title'>${wookiee ? 'Whrascwo' : 'Name'}: ${planetInfo.name}</h3 >
                             <h5 class='card-subtitle'>${wookiee ? 'Akooakhuanraaoahoowh' : 'Population'}: ${planetInfo.population}</h5>
@@ -126,22 +145,24 @@ const getAllPlanets = async () => {
                         </div >
                     </div >
                         `)
-        document.getElementById(`planet${id}`).onerror = function (e) {
-            this.src = `${_imgBase}/big-placeholder.jpg`;
-        }
     };
+    hidePreloader();
 }
 
-const getPlanet = async (id) => {
+getPlanet = async ({ id }) => {
     const planet = await getResourse(`/planets/${id}`);
     return _transformPlanet(planet)
 }
 
-const getPlanetImage = ({ id }) => {
-    return `${_imgBase}/planets/${id}.jpg`
+getPlanetImage = async ({ id }) => {
+    let imgData = await fetch(`${_imgBase}/planets/${id}.jpg`)
+    if (!imgData.ok) {
+        return `${_imgBase}/big-placeholder.jpg`
+    }
+    return imgData.url;
 }
 
-const _transformPlanet = async (planet) => {
+_transformPlanet = async (planet) => {
     return wookiee ? {
         id: await _extractId(planet),
         name: planet.whrascwo,
@@ -155,17 +176,18 @@ const _transformPlanet = async (planet) => {
     };
 }
 
-const getFilm = async (id) => {
+getFilm = async (id) => {
     const film = await getResourse(`/films/${id}`);
     return _transformFilm(film);
 }
 
-const getWookieeFilm = async (id) => {
+getWookieeFilm = async (id) => {
     const film = await getWookieeAllFilms(id);
     return _transformFilm(film);
 }
 
-const getWookieeAllFilms = async (id = '') => {
+getWookieeAllFilms = async (id = '') => {
+    showPreloader();
     const res = await fetch(`https://swapi.dev/api/films/${id}?format=wookiee`)
         .then((response) => {
             return response.text()
@@ -174,11 +196,11 @@ const getWookieeAllFilms = async (id = '') => {
 }
 
 
-const getFilmImage = (id) => {
+getFilmImage = (id) => {
     return `${_imgBase}/films/${id}.jpg`
 }
 
-const _transformFilm = (film) => {
+_transformFilm = (film) => {
     const arrIdPeople = [];
     const length = wookiee ? film.oaacrarcraoaaoworcc.length : film.characters.length;
     for (let i = 0; i < length; i++) {
@@ -200,7 +222,7 @@ const _transformFilm = (film) => {
 }
 
 let filmsCount;
-const getFilms = async () => {
+getFilms = async () => {
     clearContext();
 
     const res = wookiee ?
@@ -236,19 +258,21 @@ const getFilms = async () => {
                             <h5 class="card-subtitle" id=${imgId}> ${wookiee ? 'Waahrcwooaaooorc' : 'Director'}: ${filmInfo.director} </h5>
                         </div >
                     </div>`);
-
         const film = document.getElementById(imgId);
-        film.addEventListener('click', (e) =>
-            (wookiee ? getWookieeFilm(e.target.id) : getFilm(e.target.id)).then(data => {
-                clearContext();
-                peopleListId = data.peopleId;
-                peopleListId.forEach(id => searchPerson(id))
-            })
-        );
+        film.addEventListener('click', (e) => {
+            (wookiee ? getWookieeFilm(e.target.id) : getFilm(e.target.id))
+                .then(data => {
+                    clearContext();
+                    peopleListId = data.peopleId;
+                    Promise.all(peopleListId.filter(id => wookiee ? !BAD_PERSON_ID.includes(id) : id).map(id => searchPerson(id)))
+                        .then(() => hidePreloader());
+                })
+        });
     };
+    hidePreloader()
 };
 
-const _transformPeople = (people) => {
+_transformPeople = (people) => {
     return wookiee ? {
         id: _extractId(people),
         name: people.whrascwo,
@@ -262,14 +286,17 @@ const _transformPeople = (people) => {
     };
 }
 
-const getPerson = async (id) => {
-    const people = wookiee ? await getResourse(`/people/${id}/?format=wookiee`) : await getResourse(`/people/${id}`);
+getPerson = async (id) => {
+    const people = wookiee ?
+        await getResourse(`/people/${id}/?format=wookiee`) :
+        await getResourse(`/people/${id}`);
     return _transformPeople(people);
 }
 
-const getPersonImage = ({ id }) => {
+getPersonImage = ({ id }) => {
     return `${_imgBase}/characters/${id}.jpg`
 }
+
 
 const searchPerson = async function (id) {
     await getPerson(id).then(person => {
@@ -309,7 +336,9 @@ const searchByForm = () => {
     else {
         (wookiee ? getWookieeFilm(inputId) : getFilm(inputId)).then(data => {
             clearContext();
-            data.peopleId.forEach(id => searchPerson(id))
+            peopleListId = data.peopleId;
+            Promise.all(peopleListId.filter(id => wookiee ? !BAD_PERSON_ID.includes(id) : id).map(id => searchPerson(id)))
+                .then(() => hidePreloader());
         })
     };
 };
