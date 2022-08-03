@@ -2,7 +2,7 @@
   "name": "18-homework",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://radyslavval.github.io/cursor-homework-radyslav/18-homework",
+  "homepage": "https://radyslavval.github.io/cursor-homework-radyslav/18-homework/build/index.html",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
