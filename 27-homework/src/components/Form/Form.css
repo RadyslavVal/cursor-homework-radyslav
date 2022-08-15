@@ -1,0 +1,42 @@
+.form {
+  display: flex;
+  justify-content: space-around;
+  height: 120px;
+  margin: 0 0 20px 0;
+  border: 1px solid #aaa;
+}
+.form-textarea {
+  resize: none;
+  margin: 0 0 10px 0;
+  align-self: end;
+  height: 90px;
+  width: 500px;
+}
+.form-picture-link {
+  margin: 0 0 10px 0;
+  border: 0;
+  align-self: end;
+}
+.form-label {
+  margin: 0 !important;
+}
+.mt-4 {
+  margin: 0;
+}
+.form-choise {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.form-button {
+  align-self: center;
+}
+input[type="text"],
+textarea,
+option,
+.form-select {
+  background-color: #d1d1d1;
+}
+.form-select {
+  padding: 5px !important;
+}

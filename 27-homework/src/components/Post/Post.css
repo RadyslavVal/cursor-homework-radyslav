@@ -1,0 +1,78 @@
+.post {
+  border-bottom: 1px solid grey;
+  margin: 0 0 20px 0;
+}
+.post-header {
+  display: flex;
+  height: 80px;
+  margin: 0 0 20px 0;
+}
+.post-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.post-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.title-avatar {
+  display: inline-block;
+  margin: 0 30px 0 0;
+  object-fit: contain;
+}
+.title-avatar img {
+  object-fit: cover;
+  height: 80px;
+  width: 80px;
+  border-radius: 35px;
+}
+.author-info {
+  display: flex;
+  align-items: center;
+}
+.author-nameSername {
+  font-size: 20px;
+  color: #fff;
+  margin: 0 20px 0 0;
+}
+.author-nickname {
+  font-size: 16px;
+  color: gray;
+}
+.post-date {
+  font-size: 16px;
+  color: #ced4da;
+}
+.post-text {
+  font-size: 18px;
+  color: #e9ecef;
+}
+.post-image {
+  object-fit: cover;
+  margin: 0 0 20px 0;
+}
+.post-image img {
+  margin: 0 auto;
+  border-radius: 35px;
+}
+.post-footer {
+  display: flex;
+  padding: 0 0 10px 0;
+  justify-content: space-evenly;
+  color: #e9ecef;
+}
+.footer-element {
+  display: flex;
+  align-items: center;
+}
+.footer-element :hover {
+  cursor: pointer;
+}
+.footer-image {
+  width: 32px;
+  height: 32px;
+  margin: 0 10px 0 0;
+}
